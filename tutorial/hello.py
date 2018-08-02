@@ -1,4 +1,5 @@
 from flask import Flask, request
+import json
 
 app = Flask(__name__)
 
@@ -55,6 +56,23 @@ def fah_to_cel_conv_post():
            return value, 500
     else:
         return 'This is an invalid request', 500
+
+
+# This is POST JSON example
+@app.route('/f_to_c_json', methods=['POST'])
+def fah_to_cel_conv_post_json():
+    if request.method == 'POST':
+        import ipdb; ipdb.set_trace()
+        json_data = request.get_json()
+        print(json_data)
+        value, flag = f_to_c_conversion(json_data.get('fahrenheit'))
+        if flag:
+           return json.dumps({'celsius': value})
+        else:
+           return value, 500
+    else:
+        return 'This is an invalid request', 500
+
 
 
 if __name__ == '__main__':
