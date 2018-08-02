@@ -47,7 +47,6 @@ def fahrenheit_to_celsius_convert(temp_f):
 # This is POST example
 @app.route('/f_to_c/', methods=['POST'])
 def fah_to_cel_conv_post():
-    import ipdb; ipdb.set_trace()
     if request.method == 'POST':
         value, flag = f_to_c_conversion(request.get_data())
         if flag:
@@ -62,7 +61,6 @@ def fah_to_cel_conv_post():
 @app.route('/f_to_c_json', methods=['POST'])
 def fah_to_cel_conv_post_json():
     if request.method == 'POST':
-        import ipdb; ipdb.set_trace()
         json_data = request.get_json()
         print(json_data)
         value, flag = f_to_c_conversion(json_data.get('fahrenheit'))
@@ -73,6 +71,37 @@ def fah_to_cel_conv_post_json():
     else:
         return 'This is an invalid request', 500
 
+
+# This is POST JSON with Multiple Fahrenheits example
+@app.route('/fs_to_cs_json', methods=['POST'])
+def fahs_to_cels_conv_post_json():
+    if request.method == 'POST':
+        json_data = request.get_json()
+        print(json_data)
+        fahrenheits_list = json_data.get('fahrenheits')
+        celsius_list = []
+        for each_f in fahrenheits_list:
+            value, flag = f_to_c_conversion(each_f)
+            celsius_list.append(value)
+        return json.dumps({'celsius': celsius_list})
+    else:
+        return 'This is an invalid request', 500
+
+
+# This is POST JSON with Multiple Fahrenheits example
+@app.route('/fs_to_cs_easy', methods=['POST'])
+def fahs_to_cels_conv_easy():
+    if request.method == 'POST':
+        json_data = request.get_json()
+        print(json_data)
+        fahrenheits_list = json_data.get('fahrenheits')
+        results_list = []
+        for each_f in fahrenheits_list:
+            value, flag = f_to_c_conversion(each_f)
+            results_list.append({'fahrenheit': each_f, 'celsius': value})
+        return json.dumps({'result': results_list})
+    else:
+        return json.dumps({'error': 'This is an invalid request'}), 500
 
 
 if __name__ == '__main__':
