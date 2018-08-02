@@ -50,3 +50,8 @@ This is POST RequestConnection closed by foreign host.
 
 ## Warning
 Please don't use `pdb` or `ipython` or `ipdb` in `requirements.txt` file
+
+## Some important links
+- http://flask.pocoo.org/docs/0.12/api/
+- http://docs.python-requests.org/en/master/user/quickstart/#custom-headers
+- https://en.wikipedia.org/wiki/JSON 
